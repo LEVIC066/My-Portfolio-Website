@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Travel Memories</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      color: #2c3e50;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 15px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-weight: 600;
+      font-size: 3rem;
+      letter-spacing: 2px;
+      color: #34495e;
+      text-shadow: 1px 1px 2px #e67e22;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    .photo-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+    }
+
+    .photo-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      z-index: 2;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-caption {
+      padding: 15px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #e67e22;
+      text-align: center;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #34495e;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Travel Memories</h1>
+    <p>Snapshots from my journeys around the world.</p>
+  </header>
+
+  <main class="gallery">
+    <div class="photo-card" tabindex="0">
+      <img src="images/pp.jpg" alt="Peace Pagoda, Pokhara" />
+      <div class="photo-caption">Peace Pagoda, Pokhara</div>
+    </div>
+    <div class="photo-card" tabindex="0">
+      <img src="images/chitwan.jpg" alt="Chitwan " />
+      <div class="photo-caption">Sauraha Museum</div>
+    </div>
+    <div class="photo-card" tabindex="0">
+      <img src="images/J.Stupa.jpg" alt="City skyline at night" />
+      <div class="photo-caption">Jamchhen Stupa,Budhanilkantha</div>
+    </div>
+    <div class="photo-card" tabindex="0">
+      <img src="images/nagarkot.jpg" alt="Forest trail walk" />
+      <div class="photo-caption">Nagarkot</div>
+    </div>
+    <div class="photo-card" tabindex="0">
+      <img src="images/Rani.jpg" alt="Forest trail walk" />
+      <div class="photo-caption">Rani Jharana</div>
+    </div>
+    <div class="photo-card" tabindex="0">
+      <img src="images/BG.jpg" alt="Forest trail walk" />
+      <div class="photo-caption">BudhiGandaki River</div>
+    </div>
+    <div class="photo-card" tabindex="0">
+      <img src="images/Hajarsidhi (2).jpg" alt="Forest trail walk" />
+      <div class="photo-caption">Hajarsidhi, Dhulikhel</div>
+    </div>
+   <div class="photo-card" tabindex="0">
+      <img src="images/project2.jpg" alt="Forest trail walk" />
+      <div class="photo-caption">Road Project Survey </div>
+    </div>
+
+  </main>
+
+  <footer>
+    &copy; 2025 Ram Krishna Thakur — Cherishing every moment.
+  </footer>
+</body>
+</html>
