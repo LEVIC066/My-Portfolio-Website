@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank You!</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap');
+    
+    /* Reset */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+      user-select: none;
+    }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      background: #0a1a2f;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      position: relative;
+    }
+
+    /* Particle Canvas */
+    #particle-canvas {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      background: #0a1a2f;
+    }
+
+    /* Container */
+    .container {
+      position: relative;
+      z-index: 1;
+      background: rgba(20, 30, 60, 0.8);
+      padding: 3rem 4rem;
+      border-radius: 15px;
+      box-shadow: 0 15px 40px rgba(10, 26, 47, 0.85);
+      max-width: 600px;
+      width: 100%;
+      backdrop-filter: blur(12px);
+      text-align: center;
+      animation: fadeSlideIn 1.2s ease forwards;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animated Gradient Heading */
+    h1 {
+      font-size: 3.8rem;
+      font-weight: 800;
+      background: linear-gradient(270deg, #58a6ff, #3b82f6, #2563eb, #58a6ff);
+      background-size: 600% 600%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 12s ease infinite;
+      margin-bottom: 1rem;
+      user-select: text;
+    }
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    p.message {
+      font-size: 1.4rem;
+      color: #a9b8d4;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeSlideIn 1.2s 0.6s ease forwards;
+      user-select: text;
+    }
+
+    /* Pie circle container */
+    #pie-container {
+      margin: 0 auto;
+      width: 120px;
+      height: 120px;
+      position: relative;
+      opacity: 0;
+      animation: fadeSlideIn 1.2s 1.2s ease forwards;
+    }
+    canvas#pie {
+      display: block;
+      margin: 0 auto;
+      width: 120px;
+      height: 120px;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="particle-canvas"></canvas>
+
+  <div class="container">
+    <h1>Thank You!</h1>
+    <p class="message">Your submission has been received successfully.</p>
+    <div id="pie-container">
+      <canvas id="pie" width="120" height="120"></canvas>
+    </div>
+  </div>
+
+<script>
+  // -------- PARTICLE BACKGROUND --------
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.radius = 1.2 + Math.random() * 1.8;
+      this.vx = (Math.random() - 0.5) * 0.3;
+      this.vy = (Math.random() - 0.5) * 0.3;
+      this.alpha = 0.4 + Math.random() * 0.6;
+    }
+    move() {
+      this.x += this.vx;
+      this.y += this.vy;
+      if (this.x < 0 || this.x > W) this.vx = -this.vx;
+      if (this.y < 0 || this.y > H) this.vy = -this.vy;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = `rgba(88, 166, 255, ${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  const particlesCount = 80;
+  const particles = [];
+  for (let i=0; i < particlesCount; i++) {
+    particles.push(new Particle());
+  }
+
+  function connectParticles() {
+    for(let i=0; i<particlesCount; i++) {
+      for(let j=i+1; j<particlesCount; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 120) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(37, 99, 235, ${1 - dist/120})`;
+          ctx.lineWidth = 1;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      p.move();
+      p.draw();
+    });
+    connectParticles();
+    requestAnimationFrame(animateParticles);
+  }
+  animateParticles();
+
+  // -------- PIE CIRCLE ANIMATION --------
+  const pieCanvas = document.getElementById('pie');
+  const pieCtx = pieCanvas.getContext('2d');
+  const radius = 50;
+  const centerX = pieCanvas.width / 2;
+  const centerY = pieCanvas.height / 2;
+
+  let progress = 0; // from 0 to 1
+
+  function drawPie(progress) {
+    pieCtx.clearRect(0, 0, pieCanvas.width, pieCanvas.height);
+
+    // Background circle (light stroke)
+    pieCtx.beginPath();
+    pieCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+    pieCtx.strokeStyle = 'rgba(88, 166, 255, 0.2)';
+    pieCtx.lineWidth = 12;
+    pieCtx.stroke();
+
+    // Foreground arc (progress)
+    pieCtx.beginPath();
+    pieCtx.lineCap = 'round';
+    pieCtx.strokeStyle = '#3b82f6';
+    pieCtx.lineWidth = 12;
+    pieCtx.shadowColor = '#3b82f6';
+    pieCtx.shadowBlur = 12;
+
+    const startAngle = -Math.PI / 2; // start at top
+    const endAngle = startAngle + progress * 2 * Math.PI;
+    pieCtx.arc(centerX, centerY, radius, startAngle, endAngle);
+    pieCtx.stroke();
+
+    // Percentage text
+    pieCtx.font = '24px Montserrat';
+    pieCtx.fillStyle = '#58a6ff';
+    pieCtx.textAlign = 'center';
+    pieCtx.textBaseline = 'middle';
+    pieCtx.fillText(Math.floor(progress * 100) + '%', centerX, centerY);
+  }
+
+  function animatePie() {
+    if (progress < 1) {
+      progress += 0.005;
+      if (progress > 1) progress = 1;
+      drawPie(progress);
+      requestAnimationFrame(animatePie);
+    } else {
+      // Draw final 100% to make sure
+      drawPie(1);
+    }
+  }
+  animatePie();
+
+</script>
+</body>
+</html>
