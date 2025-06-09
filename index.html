@@ -1341,7 +1341,40 @@ document.addEventListener('keydown', function(event) {
     event.preventDefault();
   }
 });
+/*
+  Note: It is not possible to fully prevent screen recording or AI screenshot features (like Samsung AI or Google Lens) using HTML, CSS, or JavaScript. Screen recording and AI analysis operate outside the browser's security model and cannot be blocked by web code.
 
+  However, you can:
+  - Discourage search engine indexing with a meta robots tag.
+  - Discourage AI scraping by using the Permissions-Policy header (must be set server-side).
+  - Add overlays or visual noise to hinder OCR (not foolproof).
+*/
+
+// Discourage search engine indexing
+const metaRobots = document.createElement('meta');
+metaRobots.name = "robots";
+metaRobots.content = "noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate";
+document.head.appendChild(metaRobots);
+
+// Discourage Google AI/Google Lens (not guaranteed)
+const metaGoogleBot = document.createElement('meta');
+metaGoogleBot.name = "googlebot";
+metaGoogleBot.content = "noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate";
+document.head.appendChild(metaGoogleBot);
+
+// Optional: Add a semi-transparent overlay to hinder OCR/screen AI (not effective against screen recording)
+const overlay = document.createElement('div');
+overlay.style.position = 'fixed';
+overlay.style.top = 0;
+overlay.style.left = 0;
+overlay.style.width = '100vw';
+overlay.style.height = '100vh';
+overlay.style.pointerEvents = 'none';
+overlay.style.zIndex = 999999;
+overlay.style.background = 'repeating-linear-gradient(135deg, rgba(56,189,248,0.03) 0 2px, transparent 2px 8px)';
+document.body.appendChild(overlay);
+
+// Reminder: True prevention of screen recording or AI screenshotting is not possible with web technologies.
 // Scroll Indicator
 const scrollIndicator = document.getElementById('scroll-indicator');
 
@@ -1352,6 +1385,45 @@ window.addEventListener('scroll', () => {
   scrollIndicator.style.width = scrollPercent + '%';
 });
 
+  </script>
+  <!-- Attempt to block screenshots and selection on mobile devices -->
+  <script>
+    // Block text selection on mobile (extra)
+    document.addEventListener('touchstart', function(e) {
+      if (e.target.nodeName !== 'INPUT' && e.target.nodeName !== 'TEXTAREA') {
+        e.preventDefault();
+      }
+    }, {passive: false});
+
+    // Attempt to blur screen on PrintScreen key (works on some Android browsers with keyboard)
+    document.addEventListener("keyup", function(e) {
+      if (e.key === "PrintScreen") {
+        document.body.style.filter = "blur(20px)";
+        setTimeout(() => { document.body.style.filter = ""; }, 1500);
+      }
+    });
+
+    // Extra: Prevent long-press context menu and selection on mobile
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+    document.addEventListener('selectstart', function(e) { e.preventDefault(); });
+    document.addEventListener('copy', function(e) { e.preventDefault(); });
+    document.addEventListener('cut', function(e) { e.preventDefault(); });
+    document.addEventListener('paste', function(e) { e.preventDefault(); });
+    document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+    document.addEventListener('drop', function(e) { e.preventDefault(); });
+
+    // CSS for mobile: disable user-select everywhere
+    const style = document.createElement('style');
+    style.innerHTML = `
+      html, body, * {
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        user-select: none !important;
+        -webkit-touch-callout: none !important;
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>

@@ -257,7 +257,21 @@
 <body>
   <header>
     <h1>
-      <span class="typewriter">Travel Memories</span>
+      <span class="typewriter" id="typewriter-title"></span>
+      <script>
+        // Even faster and smoother typewriter animation for the title
+        const typewriterText = "Travel Memories";
+        const typewriterEl = document.getElementById('typewriter-title');
+        let k = 0;
+        function typewriteTitle() {
+          if (k <= typewriterText.length) {
+        typewriterEl.textContent = typewriterText.slice(0, k);
+        k++;
+        setTimeout(typewriteTitle, 18); // More fast
+          }
+        }
+        window.addEventListener('DOMContentLoaded', typewriteTitle);
+      </script>
     </h1>
     <p>
       <span id="subtitle-typewriter"></span>
@@ -406,7 +420,70 @@
       { src: "images/Hajarsidhi (2).jpg", alt: "Forest trail walk", caption: "Hajarsidhi, Dhulikhel" },
       { src: "images/project2.jpg", alt: "Forest trail walk", caption: "Road Project Survey" }
       ];
+      // Attempt to prevent screenshots and screen recordings (limited effectiveness)
+      // 1. Blur content when PrintScreen is pressed
+      document.addEventListener('keyup', function(e) {
+        if (e.key === 'PrintScreen') {
+          document.body.style.filter = 'blur(12px) brightness(0.7)';
+          setTimeout(() => {
+        document.body.style.filter = '';
+          }, 2000);
+        }
+      });
 
+      // 2. Try to detect screen capture APIs (not reliable, but a deterrent)
+      if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
+        setInterval(async () => {
+          try {
+        const streams = await navigator.mediaDevices.enumerateDevices();
+        if (streams.some(device => device.kind === 'videoinput' && device.label.toLowerCase().includes('screen'))) {
+          document.body.style.filter = 'blur(10px) grayscale(1)';
+          setTimeout(() => {
+            document.body.style.filter = '';
+          }, 2000);
+        }
+          } catch (e) { /* ignore */ }
+        }, 3000);
+      }
+
+      // 3. Overlay a transparent div to hinder OCR and AI tools
+      const overlay = document.createElement('div');
+      overlay.style.position = 'fixed';
+      overlay.style.top = 0;
+      overlay.style.left = 0;
+      overlay.style.width = '100vw';
+      overlay.style.height = '100vh';
+      overlay.style.pointerEvents = 'none';
+      overlay.style.zIndex = 99999;
+      overlay.style.background = 'repeating-linear-gradient(135deg, rgba(255,255,255,0.01) 0 2px, transparent 2px 8px)';
+      document.body.appendChild(overlay);
+
+      // 4. Watermark to deter screenshots and AI tools
+      const watermark = document.createElement('div');
+      watermark.textContent = "© Ram Krishna Thakur";
+      watermark.style.position = 'fixed';
+      watermark.style.bottom = '10px';
+      watermark.style.right = '20px';
+      watermark.style.opacity = '0.18';
+      watermark.style.fontSize = '2.2em';
+      watermark.style.fontWeight = 'bold';
+      watermark.style.color = '#e67e22';
+      watermark.style.pointerEvents = 'none';
+      watermark.style.zIndex = 99998;
+      watermark.style.userSelect = 'none';
+      document.body.appendChild(watermark);
+
+      // 5. Attempt to block Google Lens and Samsung AI (not fully possible, but add deterrents)
+      // Add meta tags to discourage AI tools (not guaranteed)
+      const aiMeta = document.createElement('meta');
+      aiMeta.name = "google";
+      aiMeta.content = "notranslate,noimageai";
+      document.head.appendChild(aiMeta);
+
+      // 6. Disable drag and drop of images
+      document.querySelectorAll('img').forEach(img => {
+        img.setAttribute('draggable', 'false');
+      });
       // Render gallery from template
       window.addEventListener('DOMContentLoaded', function() {
       const gallery = document.querySelector('.gallery');
