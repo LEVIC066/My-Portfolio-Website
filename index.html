@@ -812,46 +812,175 @@ nav a:hover::after {
 <!-- CONTACT SECTION -->
 <section id="contact" style="padding: 40px; background: transparent;">
   <h2 style="text-align: center; font-size: 2em;">Contact Me</h2>
-  <form id="contact-form" style="max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-    <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;" />
-    <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;" />
-    <textarea name="message" placeholder="Your Message" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;"></textarea>
-   <style>
-  .gradient-btn {
-    background: linear-gradient(270deg, #6a11cb, #2575fc, #6a11cb);
-    background-size: 600% 600%;
-    animation: gradientMove 6s ease infinite;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    box-shadow: 0 4px 12px rgba(101, 116, 205, 0.4);
-  }
-
-  .gradient-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(101, 116, 205, 0.5);
-  }
-
-  .gradient-btn:active {
-    transform: scale(0.96) translateY(2px);
-    box-shadow: 0 3px 8px rgba(101, 116, 205, 0.3);
-  }
-
-  @keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-</style>
-
-<input type="submit" value="Send Message" class="gradient-btn" />
-
+  <form id="contact-form" style="max-width: 600px; margin: auto; background: #1e293b; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(56,189,248,0.13);">
+    <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #38bdf8; border-radius: 6px; background: #0f172a; color: #f1f5f9;" />
+    <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #38bdf8; border-radius: 6px; background: #0f172a; color: #f1f5f9;" />
+    <textarea name="message" placeholder="Your Message" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #38bdf8; border-radius: 6px; background: #0f172a; color: #f1f5f9;"></textarea>
+    <input type="submit" value="Send Message" class="gradient-btn" />
   </form>
+  <div id="thank-you-message">
+    <h3>Thank you for contacting me!</h3>
+    <p>Your message has been sent successfully. I will get back to you soon.</p>
+  </div>
+  <style>
+    .gradient-btn {
+      background: linear-gradient(270deg, #38bdf8, #0ea5e9, #38bdf8);
+      background-size: 600% 600%;
+      animation: gradientMove 6s ease infinite;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 12px rgba(56,189,248,0.18);
+    }
+    .gradient-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(56,189,248,0.25);
+    }
+    .gradient-btn:active {
+      transform: scale(0.96) translateY(2px);
+      box-shadow: 0 3px 8px rgba(56,189,248,0.13);
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    #contact-form input, #contact-form textarea {
+      font-size: 1em;
+    }
+    #contact-form input::placeholder,
+    #contact-form textarea::placeholder {
+      color: #94a3b8;
+      opacity: 1;
+    }
+    #thank-you-message {
+      display: none;
+      text-align: center;
+      background: #e0f7fa;
+      padding: 30px;
+      border-radius: 12px;
+      margin-top: 20px;
+      font-family: sans-serif;
+      animation: fadeIn 1s ease-in-out;
+      color: #0f172a;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Footer animation styles */
+    .footer-animated {
+      display: inline-block;
+      font-size: 1.1em;
+      background: linear-gradient(90deg, #38bdf8, #0ea5e9, #facc15, #f472b6, #38bdf8);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      animation: footerGradientMove 6s linear infinite, footerFadeIn 1.2s cubic-bezier(.4,0,.2,1) forwards;
+      opacity: 0;
+      transform: translateY(30px) scale(0.96);
+      letter-spacing: 0.04em;
+    }
+    @keyframes footerGradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes footerFadeIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.96);}
+      to   { opacity: 1; transform: translateY(0) scale(1);}
+    }
+    .footer-heart-animated {
+      display: inline-block;
+      animation: heartBeat 1.7s infinite, heartPulseGlow 2.2s infinite alternate;
+      filter: drop-shadow(0 0 8px #38bdf8cc) drop-shadow(0 0 16px #f472b6aa);
+      will-change: transform, filter;
+      vertical-align: middle;
+    }
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1);}
+      10% { transform: scale(1.18);}
+      20% { transform: scale(0.92);}
+      30% { transform: scale(1.12);}
+      40% { transform: scale(0.98);}
+      50% { transform: scale(1.08);}
+      60% { transform: scale(1);}
+    }
+    @keyframes heartPulseGlow {
+      0% {
+        filter: drop-shadow(0 0 8px #38bdf8cc) drop-shadow(0 0 16px #f472b6aa);
+        transform: scale(1);
+      }
+      50% {
+        filter: drop-shadow(0 0 18px #f472b6cc) drop-shadow(0 0 32px #facc15aa);
+        transform: scale(1.18) rotate(-8deg);
+      }
+      100% {
+        filter: drop-shadow(0 0 8px #38bdf8cc) drop-shadow(0 0 16px #f472b6aa);
+        transform: scale(1);
+      }
+    }
+  </style>
 </section>
+<!-- Animated Footer -->
+<footer>
+  <p class="footer-animated" id="footer-animated">
+    &copy; 2025 Ram Krishna Thakur. Built with 💙
+    <span class="footer-heart-animated">💙</span>
+  </p>
+</footer>
+<script>
+  // Contact form logic
+  const form = document.getElementById("contact-form");
+  const thankYou = document.getElementById("thank-you-message");
+  const submitBtn = form.querySelector('input[type="submit"]');
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.value = "Sending...";
+
+    const formData = new FormData(form);
+
+    fetch("https://script.google.com/macros/s/AKfycbwMrbvi7GoS8h36jksizFbS5YEQ_QpgIMNEFwRRUkLRilYOPRq0lYRXHGVMSm8en1OG/exec", {
+      method: "POST",
+      body: formData
+    })
+    .then((res) => {
+      if (res.ok) {
+        form.style.display = "none";
+        thankYou.style.display = "block";
+        setTimeout(function() {
+          window.location.href = "thankyou.html";
+        }, 2000); // Redirect after 2 seconds
+      } else {
+        alert("Error: Failed to submit form.");
+      }
+    })
+    .catch((err) => {
+      alert("Submission failed: " + err.message);
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.value = "Send Message";
+    });
+  });
+
+  // Footer animation trigger
+  document.addEventListener("DOMContentLoaded", function() {
+    const el = document.getElementById("footer-animated");
+    if (el) {
+      el.style.opacity = "1";
+      el.style.transform = "translateY(0) scale(1)";
+    }
+  });
+</script>
 
 <script>
   const form = document.getElementById("contact-form");
