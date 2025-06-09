@@ -273,6 +273,45 @@
         window.addEventListener('DOMContentLoaded', typewriteTitle);
       </script>
     </h1>
+
+      
+   
+    <style>
+      @media (max-width: 600px) {
+        header h1 {
+          font-size: 1.3rem !important;
+          padding: 0.18em 0.4em !important;
+        }
+        .gallery {
+          grid-template-columns: 1fr !important;
+          gap: 14px !important;
+        }
+        .photo-card img {
+          height: 140px !important;
+        }
+        nav ul#nav-list {
+          min-width: 120px !important;
+          font-size: 1em !important;
+        }
+        nav button#menu-toggle {
+          font-size: 1em !important;
+          padding: 8px 14px !important;
+        }
+        body {
+          padding: 12px 2vw !important;
+        }
+      }
+      nav {
+        position: relative;
+        z-index: 100;
+        text-align: center;
+      }
+      nav ul#nav-list li a:active,
+      nav ul#nav-list li a:focus {
+        background: #fda08522;
+        outline: none;
+      }
+    </style>
     <p>
       <span id="subtitle-typewriter"></span>
     </p>

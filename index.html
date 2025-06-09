@@ -33,7 +33,15 @@ body {
   -ms-user-select: none;     /* IE/Edge */
 }
 
-
+/* Allow pointer events and selection for nav, menu, buttons, and links on mobile */
+nav, nav *, button, a, #menu-toggle {
+  user-select: auto !important;
+  -webkit-user-select: auto !important;
+  -moz-user-select: auto !important;
+  -ms-user-select: auto !important;
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+}
     body {
       background: linear-gradient(-45deg, #0f172a, #334155, #1e293b, #0ea5e9);
       background-size: 400% 400%;
@@ -1350,6 +1358,7 @@ document.addEventListener('keydown', function(event) {
   - Add overlays or visual noise to hinder OCR (not foolproof).
 */
 
+
 // Discourage search engine indexing
 const metaRobots = document.createElement('meta');
 metaRobots.name = "robots";
@@ -1389,11 +1398,7 @@ window.addEventListener('scroll', () => {
   <!-- Attempt to block screenshots and selection on mobile devices -->
   <script>
     // Block text selection on mobile (extra)
-    document.addEventListener('touchstart', function(e) {
-      if (e.target.nodeName !== 'INPUT' && e.target.nodeName !== 'TEXTAREA') {
-        e.preventDefault();
-      }
-    }, {passive: false});
+    // Removed touchstart preventDefault to allow scrolling on mobile devices
 
     // Attempt to blur screen on PrintScreen key (works on some Android browsers with keyboard)
     document.addEventListener("keyup", function(e) {
@@ -1426,5 +1431,72 @@ window.addEventListener('scroll', () => {
     document.head.appendChild(style);
   </script>
 </body>
-</html>
+<!-- 
+  The reason you cannot scroll or click on menu/buttons on mobile (especially in Google app or Chrome) is because of the aggressive use of:
+    - user-select: none on body and *
+    - JavaScript event.preventDefault() on touch events, selectstart, contextmenu, etc.
+    - overlays with pointer-events: none (which is correct), but the above disables all interaction.
+  To fix:
+    - Allow pointer events and selection for navigation/menu/buttons.
+    - Remove or scope user-select: none to only content you want to protect, NOT the whole body/html.
+    - Do NOT block touch events or selection on nav, menu, or interactive elements.
+    - Remove global event.preventDefault() for selectstart/contextmenu/copy/cut/paste/dragstart/drop on nav/menu/buttons.
+    - Remove the overlay or ensure it has pointer-events: none (which it does).
+    - For accessibility, allow user-select and pointer events on nav, menu, buttons, and links.
+-->
+
+<script>
+  // Remove global user-select: none from body and html
+  document.addEventListener("DOMContentLoaded", function() {
+    // Remove user-select: none from body and html
+    document.body.style.userSelect = "";
+    document.body.style.webkitUserSelect = "";
+    document.body.style.msUserSelect = "";
+    document.body.style.mozUserSelect = "";
+    document.documentElement.style.userSelect = "";
+    document.documentElement.style.webkitUserSelect = "";
+    document.documentElement.style.msUserSelect = "";
+    document.documentElement.style.mozUserSelect = "";
+
+    // Remove user-select: none from all nav, menu, button, and a elements
+    document.querySelectorAll('nav, nav *, button, a, #menu-toggle').forEach(el => {
+      el.style.userSelect = "auto";
+      el.style.webkitUserSelect = "auto";
+      el.style.msUserSelect = "auto";
+      el.style.mozUserSelect = "auto";
+      el.style.pointerEvents = "auto";
+    });
+
+    // Remove event.preventDefault for selectstart/contextmenu/copy/cut/paste/dragstart/drop on nav/menu/buttons
+    // (This is a best-effort, as some listeners may still exist)
+    ["selectstart", "contextmenu", "copy", "cut", "paste", "dragstart", "drop"].forEach(evt => {
+      document.querySelectorAll('nav, nav *, button, a, #menu-toggle').forEach(el => {
+        el.addEventListener(evt, function(e) {
+          e.stopPropagation();
+        }, true);
+      });
+    });
+  });
+
+  // Remove the CSS that disables user-select globally (if present)
+  document.addEventListener("DOMContentLoaded", function() {
+    // Remove any <style> blocks that contain user-select: none !important on html/body/*
+    document.querySelectorAll('style').forEach(styleEl => {
+      if (styleEl.innerText && styleEl.innerText.match(/user-select:\s*none\s*!important/)) {
+        styleEl.parentNode.removeChild(styleEl);
+      }
+    });
+  });
+</script>
+<style>
+  /* Allow selection and pointer events for nav, menu, buttons, and links */
+  nav, nav *, button, a, #menu-toggle {
+    user-select: auto !important;
+    -webkit-user-select: auto !important;
+    -moz-user-select: auto !important;
+    -ms-user-select: auto !important;
+    pointer-events: auto !important;
+    touch-action: manipulation !important;
+  }
+</style>
 
