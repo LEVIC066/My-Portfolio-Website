@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ram Krishna Thakur | Portfolio</title>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+/* Scroll Indicator */
+#scroll-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 5px;
+  background: #38bdf8;
+  width: 0;
+  z-index: 10000;
+  transition: width 0.25s ease-out;
+}
+
+    /* Disable text selection */
+body {
+  user-select: none;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE/Edge */
+}
+
+
+    body {
+      background: linear-gradient(-45deg, #0f172a, #334155, #1e293b, #0ea5e9);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #f1f5f9;
+    }
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    header {
+      background: rgba(30, 41, 59, 0.8);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+    header h1 {
+      font-size: 24px;
+      color: #38bdf8;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+   nav a {
+  position: relative;
+  color: #f1f5f9;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+}
+
+/* Pop-up effect on hover */
+nav a:hover {
+  color: #38bdf8;
+  transform: translateY(-5px);
+}
+
+/* Underline animation */
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px; /* distance below text */
+  width: 0;
+  height: 2px;
+  background: #38bdf8;
+  transition: width 0.3s ease;
+  border-radius: 2px;
+}
+
+/* Animate underline on hover */
+nav a:hover::after {
+  width: 100%;
+}
+
+    #menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .profile-pic {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 4px solid #38bdf8;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #38bdf8;
+  will-change: transform, box-shadow;
+}
+
+.profile-pic:hover {
+  animation: pulseGlow 2s infinite;
+  transform: perspective(600px) rotateY(15deg) rotateX(10deg) scale(1.1);
+  box-shadow:
+    0 0 8px #0ea5e9,
+    0 0 20px #38bdf8,
+    0 0 40px #0ea5e9,
+    0 0 80px #38bdf8;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 8px #0ea5e9,
+      0 0 20px #38bdf8,
+      0 0 40px #0ea5e9,
+      0 0 80px #38bdf8;
+  }
+  50% {
+    box-shadow:
+      0 0 12px #38bdf8,
+      0 0 30px #0ea5e9,
+      0 0 50px #38bdf8,
+      0 0 100px #0ea5e9;
+  }
+}
+
+    .profile-section img.background {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .profile-pic {
+      position: relative;
+      z-index: 1;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      border: 4px solid #38bdf8;
+      margin: 100px auto 0;
+      display: block;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+    #hero {
+      text-align: center;
+    }
+    #hero p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+    .social-icons {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .social-icons a {
+      margin: 0 10px;
+      color: #38bdf8;
+      font-size: 1.5rem;
+      transition: color 0.3s;
+    }
+    .social-icons a:hover {
+      color: #f43f5e;
+    }
+    .tilt-card {
+      background: rgba(30, 41, 59, 0.9);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+    .tilt-card h3 a {
+      text-decoration: none;
+      color: #facc15;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    form input, form textarea {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      background: #1e293b;
+      border: 1px solid #94a3b8;
+      color: #f1f5f9;
+      border-radius: 8px;
+    }
+    form input[type="submit"] {
+      background: #38bdf8;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    form input[type="submit"]:hover {
+      background: #0ea5e9;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #1e293b;
+    }
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #38bdf8;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: white;
+      display: none;
+    }
+    @media (max-width: 600px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background: #1e293b;
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        padding: 10px;
+        border-radius: 8px;
+      }
+      nav ul.active {
+        display: flex;
+      }
+      #menu-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="scroll-indicator"></div>
+
+  <header>
+    <h1>Ram Krishna Thakur</h1>
+    <nav>
+      <ul id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div id="menu-toggle"><i class="fas fa-bars"></i></div>
+    </nav>
+    
+  </header>
+
+  <section class="profile-section">
+    <img src="images/Background.jpg" alt="Background" class="background" />
+    <img src="images/Profile.jpg.jpg" alt="Profile Picture" class="profile-pic" />
+  </section>
+
+  <section id="hero">
+    <h2 data-aos="fade-down">Hey, I'm Ram Krishna Thakur</h2>
+    <p data-aos="fade-up">An endlessly curious mind on a journey to create, learn, and explore the depths of innovation.</p>
+    <div class="social-icons">
+      <a href="https://www.facebook.com/ram.thakur.637559/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://github.com/LEVIC066" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://instagram.com/@ramkrishna245066" target="_blank"><i class="fab fa-instagram"></i></a>
+    </div>
+  </section>
+
+  <section id="about" data-aos="fade-right">
+    <h2>About Me</h2>
+    <p>I am an aspiring civil engineer passionate about learning, design, and creative exploration. My work bridges technical knowledge and innovative thinking.</p>
+  </section>
+
+  <section id="skills" data-aos="zoom-in">
+    <h2>Skills</h2>
+    <ul>
+      <li>AutoCAD, QGIS, Smart Road</li>
+      <li>HTML & CSS</li>
+      <li>Git & GitHub</li>
+    </ul>
+  </section>
+
+  <section id="projects">
+    <h2 data-aos="fade-up">Projects</h2>
+    <div class="tilt-card" data-aos="zoom-in">
+      <h3><a href="projects.html">Geometric Design of Road</a></h3>
+      <p>Tools used: Google Earth, Smart Road, QGIS.</p>
+    </div>
+    <div class="tilt-card" data-aos="zoom-in">
+      <h3><a href="projects.html">Portfolio Website</a></h3>
+      <p>Developed using HTML, CSS, JavaScript, Git, and VS Code.</p>
+    </div>
+  </section>
+
+  <section id="gallery" data-aos="fade-up">
+    <h2>Gallery</h2>
+    <p><a href="travel.html" style="color:#38bdf8;">Click here to explore my travel adventures ✈️</a></p>
+  </section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact</title>
+  <style>
+    #thank-you-message {
+      display: none;
+      text-align: center;
+      background: #e0f7fa;
+      padding: 30px;
+      border-radius: 12px;
+      margin-top: 20px;
+      font-family: sans-serif;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+<!-- CONTACT SECTION -->
+<section id="contact" style="padding: 40px; background: transparent;">
+  <h2 style="text-align: center; font-size: 2em;">Contact Me</h2>
+  <form id="contact-form" style="max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <input type="text" name="name" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;" />
+    <input type="email" name="email" placeholder="Your Email" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;" />
+    <textarea name="message" placeholder="Your Message" required style="width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px;"></textarea>
+   <style>
+  .gradient-btn {
+    background: linear-gradient(270deg, #6a11cb, #2575fc, #6a11cb);
+    background-size: 600% 600%;
+    animation: gradientMove 6s ease infinite;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 12px rgba(101, 116, 205, 0.4);
+  }
+
+  .gradient-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(101, 116, 205, 0.5);
+  }
+
+  .gradient-btn:active {
+    transform: scale(0.96) translateY(2px);
+    box-shadow: 0 3px 8px rgba(101, 116, 205, 0.3);
+  }
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+</style>
+
+<input type="submit" value="Send Message" class="gradient-btn" />
+
+  </form>
+</section>
+
+<script>
+  const form = document.getElementById("contact-form");
+  const submitBtn = form.querySelector('input[type="submit"]');
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.value = "Sending...";
+
+    const formData = new FormData(form);
+
+    fetch("https://script.google.com/macros/s/AKfycbwMrbvi7GoS8h36jksizFbS5YEQ_QpgIMNEFwRRUkLRilYOPRq0lYRXHGVMSm8en1OG/exec", {
+      method: "POST",
+      body: formData
+    })
+    .then((res) => {
+      if (res.ok) {
+        window.location.href = "thankyou.html"; // ✅ Redirect to thank-you page
+      } else {
+        alert("Error: Failed to submit form.");
+      }
+    })
+    .catch((err) => {
+      alert("Submission failed: " + err.message);
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.value = "Send Message";
+    });
+  });
+</script>
+
+
+  <footer>
+    <p>&copy; 2025 Ram Krishna Thakur. Built with 💙</p>
+  </footer>
+
+  <button class="back-to-top" id="backToTop">↑</button>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt"></script>
+  <script>
+    AOS.init();
+    VanillaTilt.init(document.querySelectorAll(".tilt-card"), {
+      max: 15,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.3,
+    });
+
+    const backToTop = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      backToTop.style.display = window.scrollY > 300 ? "block" : "none";
+    });
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("nav-links").classList.toggle("active");
+    });
+    // Disable right-click context menu
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// Disable Ctrl+C, Ctrl+X, Ctrl+V, Ctrl+U (copy, cut, paste, view source)
+document.addEventListener('keydown', function(event) {
+  if (
+    (event.ctrlKey && (event.key === 'c' || event.key === 'x' || event.key === 'v' || event.key === 'u')) ||
+    event.key === 'F12' // Disable dev tools
+  ) {
+    event.preventDefault();
+  }
+});
+
+// Scroll Indicator
+const scrollIndicator = document.getElementById('scroll-indicator');
+
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = (scrollTop / docHeight) * 100;
+  scrollIndicator.style.width = scrollPercent + '%';
+});
+
+  </script>
+</body>
+</html>
