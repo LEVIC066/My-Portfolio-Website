@@ -26,6 +26,82 @@
     }
 
     /* Particle Canvas */
+
+    /* Improve animation smoothness */
+    html, body {
+      /* Remove overflow: hidden to allow browser to optimize painting */
+      overflow: visible;
+      /* Enable hardware acceleration for smoother animations */
+      will-change: transform, opacity;
+      /* Reduce forced repaints */
+      backface-visibility: hidden;
+      pointer-events: none;
+      -webkit-user-drag: none;
+      -webkit-touch-callout: none;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-text-size-adjust: 100%;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    #particle-canvas {
+      /* Use will-change for canvas too */
+      will-change: opacity, transform;
+    }
+
+    /* --- Super Cool Pie Circle --- */
+    #pie-container {
+      box-shadow: 0 6px 32px 0 rgba(88,166,255,0.18);
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(59, 130, 246, 0.09) 100%);
+      border-radius: 50%;
+      transition: box-shadow 0.4s cubic-bezier(.4,2,.6,1);
+      animation: piePop 1.2s cubic-bezier(.4,2,.6,1) 1.2s both;
+      position: relative;
+      overflow: visible;
+    }
+    @keyframes piePop {
+      0% { transform: scale(0.7); opacity: 0; }
+      60% { transform: scale(1.08); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    canvas#pie {
+      filter: drop-shadow(0 0 18px #3b82f6aa);
+      transition: filter 0.3s;
+    }
+
+    /* --- Cool Fill Animation for Pie Circle --- */
+    /* Add a glowing effect and gradient stroke */
+    .pie-glow {
+      animation: pieGlowPulse 2.2s infinite alternate cubic-bezier(.4,2,.6,1);
+    }
+    @keyframes pieGlowPulse {
+      0% { filter: drop-shadow(0 0 18px #3b82f6aa); }
+      100% { filter: drop-shadow(0 0 32px #60a5fa); }
+    }
+
+    /* --- Home Button Styles --- */
+    .home-btn {
+      display: inline-block;
+      margin: 2.2rem auto 0 auto;
+      padding: 0.85rem 2.2rem;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(90deg, #2563eb 0%, #58a6ff 100%);
+      border: none;
+      border-radius: 32px;
+      box-shadow: 0 4px 18px rgba(56,189,248,0.13);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.18s;
+      outline: none;
+      letter-spacing: 0.03em;
+      position: relative;
+      z-index: 1;
+    }
+    .home-btn:hover, .home-btn:focus {
+      background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 8px 32px rgba(56,189,248,0.18);
+    }
     #particle-canvas {
       position: fixed;
       top: 0; left: 0; width: 100%; height: 100%;
